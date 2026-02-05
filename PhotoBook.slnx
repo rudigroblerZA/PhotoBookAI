@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="PhotoBook.AILayoutService/PhotoBook.AILayoutService.csproj" />
+  <Project Path="PhotoBook.AIPhotoAnalyzer/PhotoBook.AIPhotoAnalyzer.csproj" />
   <Project Path="PhotoBook.AppHost/PhotoBook.AppHost.csproj" />
   <Project Path="PhotoBook.DesignService/PhotoBook.DesignService.csproj" />
   <Project Path="PhotoBook.PhotoService/PhotoBook.PhotoService.csproj" />

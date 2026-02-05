@@ -1,0 +1,6 @@
+@PhotoBook.AIPhotoAnalyzer_HostAddress = http://localhost:5195
+
+GET {{PhotoBook.AIPhotoAnalyzer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

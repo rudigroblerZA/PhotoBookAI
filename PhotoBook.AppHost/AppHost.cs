@@ -75,4 +75,6 @@ builder.AddProject<Projects.PhotoBook_Web>("webfrontend")
     .WithReference(redis)
     .WaitFor(redis);
 
+builder.AddProject<Projects.PhotoBook_AIPhotoAnalyzer>("photobook-aiphotoanalyzer");
+
 builder.Build().Run();

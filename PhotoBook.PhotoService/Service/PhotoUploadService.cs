@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Azure.Storage.Blobs;
+﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.EntityFrameworkCore;
 using PhotoBook.PhotoService.Data;
