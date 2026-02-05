@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="PhotoBook.AILayoutService/PhotoBook.AILayoutService.csproj" />
+  <Project Path="PhotoBook.AppHost/PhotoBook.AppHost.csproj" />
+  <Project Path="PhotoBook.DesignService/PhotoBook.DesignService.csproj" />
+  <Project Path="PhotoBook.PhotoService/PhotoBook.PhotoService.csproj" />
+  <Project Path="PhotoBook.RenderService/PhotoBook.RenderService.csproj" />
+  <Project Path="PhotoBook.ServiceDefaults/PhotoBook.ServiceDefaults.csproj" />
+  <Project Path="PhotoBook.Shared/PhotoBook.Shared.csproj" Id="2ac6cfd7-0a7f-469a-a09d-5d13ea3c0b74" />
+  <Project Path="PhotoBook.Tests/PhotoBook.Tests.csproj" />
+  <Project Path="PhotoBook.Web/PhotoBook.Web.csproj" />
+</Solution>

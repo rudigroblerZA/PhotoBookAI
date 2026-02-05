@@ -1,0 +1,6 @@
+@PhotoBook.DesignService_HostAddress = http://localhost:5098
+
+GET {{PhotoBook.DesignService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
