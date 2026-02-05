@@ -1,19 +1,12 @@
-﻿using Azure.Storage.Blobs;
+﻿using System.Globalization;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.EntityFrameworkCore;
 using PhotoBook.PhotoService.Data;
+using PhotoBook.PhotoService.Models;
 using PhotoBook.Shared.Models;
 
 namespace PhotoBook.PhotoService.Services;
-
-public interface IPhotoUploadService
-{
-    Task<PhotoMetadata> UploadPhotoAsync(IFormFile file, Guid userId);
-    Task<List<PhotoMetadata>> GetUserPhotosAsync(Guid userId, int skip, int take, string? sortBy, bool descending);
-    Task<PhotoMetadata?> GetPhotoAsync(Guid photoId);
-    Task<bool> DeletePhotoAsync(Guid photoId, Guid userId);
-    Task<object> GetUserStatsAsync(Guid userId);
-}
 
 public class PhotoUploadService : IPhotoUploadService
 {
@@ -52,9 +45,6 @@ public class PhotoUploadService : IPhotoUploadService
 
         using var stream = file.OpenReadStream();
 
-
-
-
         // Set content type
         var blobHttpHeaders = new BlobHttpHeaders
         {
@@ -89,9 +79,9 @@ public class PhotoUploadService : IPhotoUploadService
             FileSize = file.Length,
             Width = width,
             Height = height,
-            //DateTaken = dateTaken.ToString("yyyy-MM-dd HH:mm:ss.fffZ", CultureInfo.InvariantCulture)
+            DateTaken = dateTaken,
             Location = location,
-            //UploadedAt = DateTime.Now,
+            UploadedAt = DateTime.UtcNow,
         };
 
         _context.Photos.Add(photo);
@@ -114,9 +104,9 @@ public class PhotoUploadService : IPhotoUploadService
         // Apply sorting
         query = sortBy?.ToLower() switch
         {
-            //"datetaken" => descending
-            //    ? query.OrderByDescending(p => p.DateTaken ?? p.UploadedAt)
-            //    : query.OrderBy(p => p.DateTaken ?? p.UploadedAt),
+            "datetaken" => descending
+                ? query.OrderByDescending(p => p.DateTaken ?? p.UploadedAt)
+                : query.OrderBy(p => p.DateTaken ?? p.UploadedAt),
             "filename" => descending
                 ? query.OrderByDescending(p => p.FileName)
                 : query.OrderBy(p => p.FileName),
@@ -186,8 +176,8 @@ public class PhotoUploadService : IPhotoUploadService
         {
             totalPhotos = photos.Count,
             totalSize = photos.Sum(p => p.FileSize),
-            //oldestPhoto = photos.Min(p => p.DateTaken ?? p.UploadedAt),
-            //newestPhoto = photos.Max(p => p.DateTaken ?? p.UploadedAt),
+            oldestPhoto = photos.Min(p => p.DateTaken ?? p.UploadedAt),
+            newestPhoto = photos.Max(p => p.DateTaken ?? p.UploadedAt),
             averageWidth = photos.Average(p => p.Width),
             averageHeight = photos.Average(p => p.Height)
         };

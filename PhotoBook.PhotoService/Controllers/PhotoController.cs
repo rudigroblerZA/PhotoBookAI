@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PhotoBook.PhotoService.Models;
 using PhotoBook.PhotoService.Services;
-using PhotoBook.Shared.Models;
 
 namespace PhotoBook.PhotoService.Controllers;
 

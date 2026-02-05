@@ -3,12 +3,6 @@ using MetadataExtractor.Formats.Exif;
 
 namespace PhotoBook.PhotoService.Services;
 
-public interface IMetadataExtractionService
-{
-    Task<(int width, int height, DateTime? dateTaken, string? location, int orientation)>
-        ExtractMetadataAsync(Stream imageStream);
-}
-
 public class MetadataExtractionService : IMetadataExtractionService
 {
     private readonly ILogger<MetadataExtractionService> _logger;
@@ -47,7 +41,7 @@ public class MetadataExtractionService : IMetadataExtractionService
             {
                 if (exifSubIfdDirectory.TryGetDateTime(ExifDirectoryBase.TagDateTimeOriginal, out var date))
                 {
-                    dateTaken = date;
+                    dateTaken = date.ToUniversalTime();
                 }
             }
 
@@ -55,10 +49,10 @@ public class MetadataExtractionService : IMetadataExtractionService
             //var gpsDirectory = directories.OfType<MetadataExtractor.Formats.Exif.GpsDirectory>().FirstOrDefault();
             //if (gpsDirectory != null)
             //{
-            //    var gpsLocation = gpsDirectory.GetGeoLocation();
-            //    if (gpsLocation != null)
+            //    if (gpsDirectory?.TryGetGeoLocation() is GeoLocation geoLocation)
             //    {
-            //        location = $"{gpsLocation.Latitude:F6}, {gpsLocation.Longitude:F6}";
+            //        Console.WriteLine($"Lat: {geoLocation.Latitude}, Long: {geoLocation.Longitude}");
+            //        location = $"{geoLocation.Latitude:F6}, {geoLocation.Longitude:F6}";
             //    }
             //}
 

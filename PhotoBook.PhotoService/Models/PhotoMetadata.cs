@@ -1,4 +1,4 @@
-﻿namespace PhotoBook.Shared.Models;
+﻿namespace PhotoBook.PhotoService.Models;
 
 public class PhotoMetadata
 {
@@ -10,7 +10,8 @@ public class PhotoMetadata
     public long FileSize { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
-    //public DateTime? DateTaken { get; set; }
+
+    public DateTime? DateTaken { get; set; }
     public string? Location { get; set; }
-    //public DateTime UploadedAt { get; set; }
+    public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PhotoBook.PhotoService.Models;
 using PhotoBook.Shared.Models;
 
 namespace PhotoBook.PhotoService.Data;
@@ -17,8 +18,8 @@ public class PhotoDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.HasIndex(e => e.UserId);
-            //entity.HasIndex(e => e.UploadedAt);
-            //entity.HasIndex(e => e.DateTaken);
+            entity.HasIndex(e => e.UploadedAt);
+            entity.HasIndex(e => e.DateTaken);
 
             entity.Property(e => e.FileName)
                 .IsRequired()
@@ -45,13 +46,4 @@ public class PhotoDbContext : DbContext
                 .HasMaxLength(200);
         });
     }
-}
-
-public class PhotoAlbum
-{
-    public Guid Id { get; set; }
-    public Guid UserId { get; set; }
-    public string Name { get; set; } = string.Empty;
-    //public DateTime CreatedAt { get; set; }
-    public List<Guid> PhotoIds { get; set; } = new();
 }

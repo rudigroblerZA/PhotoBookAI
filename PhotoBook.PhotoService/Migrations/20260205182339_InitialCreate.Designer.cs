@@ -13,7 +13,7 @@ using PhotoBook.PhotoService.Data;
 namespace PhotoBook.PhotoService.Migrations
 {
     [DbContext(typeof(PhotoDbContext))]
-    [Migration("20260108112952_InitialCreate")]
+    [Migration("20260205182339_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,16 +21,19 @@ namespace PhotoBook.PhotoService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.1")
+                .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PhotoBook.PhotoService.Data.PhotoAlbum", b =>
+            modelBuilder.Entity("PhotoBook.PhotoService.Models.PhotoAlbum", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -51,7 +54,7 @@ namespace PhotoBook.PhotoService.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("PhotoBook.Shared.Models.PhotoMetadata", b =>
+            modelBuilder.Entity("PhotoBook.PhotoService.Models.PhotoMetadata", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

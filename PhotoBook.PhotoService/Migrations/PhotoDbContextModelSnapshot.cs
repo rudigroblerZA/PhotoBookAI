@@ -18,16 +18,19 @@ namespace PhotoBook.PhotoService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.1")
+                .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PhotoBook.PhotoService.Data.PhotoAlbum", b =>
+            modelBuilder.Entity("PhotoBook.PhotoService.Models.PhotoAlbum", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -48,7 +51,7 @@ namespace PhotoBook.PhotoService.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("PhotoBook.Shared.Models.PhotoMetadata", b =>
+            modelBuilder.Entity("PhotoBook.PhotoService.Models.PhotoMetadata", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,6 +61,9 @@ namespace PhotoBook.PhotoService.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<DateTime?>("DateTaken")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FileName")
                         .IsRequired()
@@ -79,6 +85,9 @@ namespace PhotoBook.PhotoService.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
@@ -86,6 +95,10 @@ namespace PhotoBook.PhotoService.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DateTaken");
+
+                    b.HasIndex("UploadedAt");
 
                     b.HasIndex("UserId");
 
